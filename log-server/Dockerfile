@@ -1,12 +1,17 @@
 FROM golang:1.14
 
-WORKDIR /go/src/backend-test-senior-sshtel/apiserver
+WORKDIR /app
 COPY . .
 
 RUN go get -d -v ./...
-RUN go install -v ./...
+# RUN go install -v ./...
 RUN cd ./test && go test
 
-RUN go build
+RUN CGO_ENABLED=0 GOOS=linux go build -a .
 
-CMD ["apiserver"]
+
+FROM golang:alpine  
+RUN apk --no-cache add ca-certificates
+WORKDIR /app
+COPY --from=0 /app .
+CMD "/app/entrypoint.sh"
