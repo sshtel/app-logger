@@ -12,7 +12,7 @@ type Server struct {
 }
 
 func (s *Server) Run() {
-	mongoService.InitMongoRouterService()
+	mongoService.InitMongoService()
 
 	s.apiServer = NewApiServer()
 	s.apiServer.Run()

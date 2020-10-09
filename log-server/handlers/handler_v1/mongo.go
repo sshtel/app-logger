@@ -74,7 +74,7 @@ func StoreDataMongoCollection(c echo.Context) error {
 	fmt.Println(json_map)
 	mongoService.MongoServiceRef.GetInputChannel("default") <- model.LogData{
 		Timestamp: "time",
-		JsonBody: json_map,
+		Body: json_map,
 		QueryParam: json_map,
 	}
 
