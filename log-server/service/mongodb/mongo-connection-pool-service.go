@@ -1,38 +1,43 @@
 package mongodb_service
 
 import (
-	// "strconv"
+	"strconv"
 	"fmt"
 	"sync"
 	model "../../model"
 	mongodb "../../storage/mongodb"
+	"../../defs"
 	// utils "github.com/sshtel/app-logger/log-server/utils"
 )
 
-type Environments struct {
-	MONGO_HOSTNAME string
-	MONGO_PORT string
-}
 type MongoConnectionPoolService struct {
 	wg sync.WaitGroup
-	envs Environments
+	conf defs.DbConfig
 	serverPool map[int]*mongodb.MongoDBServer
 
 	InputChannel chan model.LogData
 }
 
-func NewMongoConnectionPoolService (host string, port string) MongoConnectionPoolService {
+func NewMongoConnectionPoolService (conf defs.DbConfig) MongoConnectionPoolService {
 	p := new (MongoConnectionPoolService)
-	p.envs.MONGO_HOSTNAME = host
-	p.envs.MONGO_PORT = port
+	p.conf = conf
 	return *p
 }
+
+
+// func NewMongoConnectionPoolService (host string, port string) MongoConnectionPoolService {
+// 	p := new (MongoConnectionPoolService)
+// 	p.envs.MONGO_HOSTNAME = host
+// 	p.envs.MONGO_PORT = port
+// 	return *p
+// }
 
 func (s *MongoConnectionPoolService) Terminate() {
 	s.wg.Done()
 }
 
-func (s *MongoConnectionPoolService) Run(poolCount int) {
+func (s *MongoConnectionPoolService) Run() {
+	poolCount := s.conf.ConnPoolSize
 	s.serverPool = map[int]*mongodb.MongoDBServer{}
 
 	s.InputChannel = make(chan model.LogData)
@@ -40,11 +45,9 @@ func (s *MongoConnectionPoolService) Run(poolCount int) {
 	go func() {
 		s.wg.Add(1)
 
-		// defaultHostUri := s.envs.MONGO_HOSTNAME + ":" + s.envs.MONGO_PORT
-
 		for i := 0; i < poolCount; i++ {
 			// db init
-			mongoServer := mongodb.NewMongoDBServer(i, s.envs.MONGO_HOSTNAME, s.envs.MONGO_PORT)
+			mongoServer := mongodb.NewMongoDBServer(i, s.conf.Hostname, strconv.Itoa(s.conf.Port))
 			mongoServer.Connect()
 			defer mongoServer.Disconnect(nil)
 			s.serverPool[i] = mongoServer
