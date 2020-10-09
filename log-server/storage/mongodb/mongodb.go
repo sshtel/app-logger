@@ -8,7 +8,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	model "github.com/sshtel/app-logger/log-server/model"
+	model "../../model"
 )
 
 type MongoDBServer struct {

@@ -4,7 +4,7 @@ import (
 	// "fmt"
 	// utils "github.com/sshtel/app-logger/log-server/utils"
 	// mongodb "github.com/sshtel/app-logger/log-server/storage/mongodb"
-	mongoService "github.com/sshtel/app-logger/log-server/service/mongodb"
+	mongoService "../service/mongodb"
 )
 
 

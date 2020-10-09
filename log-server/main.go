@@ -1,7 +1,7 @@
 package main
 
 import (
-	server "github.com/sshtel/app-logger/log-server/server"
+	server "./server"
 	"fmt"
 )
 

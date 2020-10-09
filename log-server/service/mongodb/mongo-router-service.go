@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 	// mongodb "github.com/sshtel/app-logger/log-server/storage/mongodb"
-	model "github.com/sshtel/app-logger/log-server/model"
+	model "../../model"
 )
 
 type MongoRouterService struct {

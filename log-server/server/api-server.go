@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	model "github.com/sshtel/app-logger/log-server/model"
-	utils "github.com/sshtel/app-logger/log-server/utils"
-	mongoService "github.com/sshtel/app-logger/log-server/service/mongodb"
-	mysqlService "github.com/sshtel/app-logger/log-server/service/mysql"
+	model "../model"
+	utils "../utils"
+	mongoService "../service/mongodb"
+	mysqlService "../service/mysql"
 
 )
 type ApiServer struct {

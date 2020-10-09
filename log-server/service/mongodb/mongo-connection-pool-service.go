@@ -4,8 +4,8 @@ import (
 	// "strconv"
 	"fmt"
 	"sync"
-	model "github.com/sshtel/app-logger/log-server/model"
-	mongodb "github.com/sshtel/app-logger/log-server/storage/mongodb"
+	model "../../model"
+	mongodb "../../storage/mongodb"
 	// utils "github.com/sshtel/app-logger/log-server/utils"
 )
 
