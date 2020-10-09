@@ -1,4 +1,4 @@
-package mongodb
+package mongo_pool_service
 
 import (
 	"time"
