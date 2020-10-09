@@ -3,8 +3,8 @@ import (
 	"fmt"
 	"net/http"
 	"github.com/labstack/echo"
-	mongoService "../../service/mongodb"
-	model "../../model"
+	mongo "../../service/mongodb"
+	global "../../global"
 )
 
 func GetInfoMongoAll(c echo.Context) error {
@@ -59,24 +59,30 @@ func StoreDataMongoCollection(c echo.Context) error {
 	hostnickname := c.Param("hostnickname")
 	database := c.Param("database")
 	collection := c.Param("collection")
-	from := c.QueryParam("from")
-	to := c.QueryParam("to")
-	fmt.Println(hostnickname)
-	fmt.Println(database)
-	fmt.Println(collection)
-	fmt.Println(from)
-	fmt.Println(to)
+	// from := c.QueryParam("from")
+	// to := c.QueryParam("to")
 
-	result := "resut"
+	result := "result"
 
 	json_map := echo.Map{}
 	if err := c.Bind(&json_map); err != nil { return err }
-	fmt.Println(json_map)
-	mongoService.MongoServiceRef.GetInputChannel("default") <- model.LogData{
+
+	delete(json_map, "hostnickname");
+	delete(json_map, "collection");
+	delete(json_map, "database");
+	
+	err := global.MongoServiceRef.PutData(&mongo.MongoLogData{
+		HostNickname: hostnickname,
 		Timestamp: "time",
-		Body: json_map,
-		QueryParam: json_map,
-	}
+		Database: database,
+		Collection: collection,
+		Data: json_map,
+	})
+	
+	if err != nil {
+		return c.JSON(http.StatusOK, "error" )
+	}	
+	
 
 	return c.JSON(http.StatusOK, &result)
 }
