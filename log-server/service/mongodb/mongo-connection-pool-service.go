@@ -1,4 +1,4 @@
-package service
+package mongodb_service
 
 import (
 	// "strconv"

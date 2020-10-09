@@ -5,6 +5,7 @@ import (
 	"fmt"
 )
 
+
 func main() {
 	fmt.Println("Start log-server..")
 	server := new(server.Server)
