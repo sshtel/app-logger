@@ -1,4 +1,4 @@
-package service
+package mongodb_service
 
 import (
 	"fmt"
@@ -6,23 +6,31 @@ import (
 	model "../../model"
 )
 
-type MongoRouterService struct {
+var MongoServiceRef *MongoService = nil
+
+func InitMongoRouterService() {
+	if MongoServiceRef == nil {
+		MongoServiceRef = new(MongoService)
+	}
+}
+
+type MongoService struct {
 	defHostPool MongoConnectionPoolService
 
 	hostTable map[string]*MongoConnectionPoolService
 }
 
 
-func (s *MongoRouterService) Init() {
+func (s *MongoService) Init() {
 	
-	fmt.Println("Initializing MongoRouterService..")
+	fmt.Println("Initializing MongoService..")
 	s.defHostPool = NewMongoConnectionPoolService("localhost", "27017")
 	s.defHostPool.Run(3)
 
 }
 
 
-func (s *MongoRouterService) GetInputChannel(hostnickname string) chan model.LogData {
+func (s *MongoService) GetInputChannel(hostnickname string) chan model.LogData {
 	fmt.Println(hostnickname)
 	return s.defHostPool.InputChannel
 }

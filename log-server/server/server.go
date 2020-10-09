@@ -7,16 +7,13 @@ import (
 	mongoService "../service/mongodb"
 )
 
-
 type Server struct {
 	apiServer ApiServer
-	mongoRouter mongoService.MongoRouterService
 }
 
 func (s *Server) Run() {
-	s.mongoRouter.Init()
-	
-	
-	s.apiServer = NewApiServer(&s.mongoRouter)
+	mongoService.InitMongoRouterService()
+
+	s.apiServer = NewApiServer()
 	s.apiServer.Run()
 }
