@@ -24,14 +24,12 @@ func (c *MySqlConn) Open() error {
 	target := c.User + ":" + c.Pass + "@tcp(" + c.Host + ":" + c.Port + ")/" + c.DbName
 	log.Println("Open DB connection to " + target)
 
-	//"username:password@tcp(127.0.0.1:3306)/test"
 	db, err := sql.Open("mysql", target)
 	if err != nil {
 		log.Println(err)
 		return err
 	}
 
-	// See "Important settings" section.
 	db.SetConnMaxLifetime(time.Minute * 3)
 	db.SetMaxOpenConns(10)
 	db.SetMaxIdleConns(10)
