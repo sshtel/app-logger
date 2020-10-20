@@ -5,6 +5,7 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	v1 "../handlers/handler_v1"
+	"../handlers/handler_common"
 	utils "../utils"
 )
 type ApiServer struct {
@@ -34,7 +35,7 @@ func (s *ApiServer) Run() {
 
 	v1MongoRouter := e.Group("/v1/mongo")
 
-	e.GET("/ping", v1.Pong)
+	e.GET("/ping", handler_common.Pong)
 
 	// v1 mongo
 	v1MongoRouter.GET("/info", v1.GetInfoMongoAll)
