@@ -1,0 +1,10 @@
+{
+  "mongo01": {
+    "dbtype": "mongo",
+    "hostname": "localhost",
+    "port": 27017,
+    "user": "",
+    "password": "",
+    "connectionPoolSize": 5
+  }
+}
