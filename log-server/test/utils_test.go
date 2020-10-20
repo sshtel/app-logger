@@ -1,7 +1,9 @@
 package tests
+
 import (
 	"testing"
-	utils "../utils"
+
+	utils "github.com/sshtel/app-logger/log-server/utils"
 )
 
 func Test_ParseTimeSimple(t *testing.T) {

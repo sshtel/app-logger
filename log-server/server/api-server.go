@@ -2,12 +2,14 @@ package server
 
 import (
 	"fmt"
+
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	v1 "../handlers/handler_v1"
-	"../handlers/handler_common"
-	utils "../utils"
+	"github.com/sshtel/app-logger/log-server/handlers/handler_common"
+	v1 "github.com/sshtel/app-logger/log-server/handlers/handler_v1"
+	utils "github.com/sshtel/app-logger/log-server/utils"
 )
+
 type ApiServer struct {
 	APISERVER_PORT string
 }
@@ -18,9 +20,7 @@ func NewApiServer() ApiServer {
 	return *p
 }
 
-
 func (s *ApiServer) Run() {
-
 
 	fmt.Println("Run api-server..")
 
@@ -44,8 +44,6 @@ func (s *ApiServer) Run() {
 	v1MongoRouter.GET("/:hostnickname/:database/:collection/info", v1.GetInfoMongoCollection)
 	v1MongoRouter.GET("/:hostnickname/:database/:collection/data", v1.GetDataMongoCollection)
 	v1MongoRouter.POST("/:hostnickname/:database/:collection/data", v1.StoreDataMongoCollection)
-
-
 
 	// Start server
 	e.Logger.Fatal(e.Start(":" + s.APISERVER_PORT))

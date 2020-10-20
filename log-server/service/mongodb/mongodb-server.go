@@ -11,13 +11,13 @@ import (
 )
 
 type MongoDBServer struct {
-	PoolIdx  int
-	Hostname string
-	Port     int
-	User	 string
-	Password string
-	Uri      string
-	Client   *mongo.Client
+	PoolIdx        int
+	Hostname       string
+	Port           int
+	User           string
+	Password       string
+	Uri            string
+	Client         *mongo.Client
 	LogDataChannel (chan MongoLogData)
 }
 
@@ -40,12 +40,12 @@ func NewMongoDBServer(poolIdx int, conf MongoConfig) *MongoDBServer {
 	} else {
 		uri = fmt.Sprintf("mongodb://%s@%s:%s", userPass, hostname, portStr)
 	}
-	
+
 	return &MongoDBServer{
-		PoolIdx: poolIdx,
+		PoolIdx:  poolIdx,
 		Hostname: hostname, Port: port,
 		User: conf.User, Password: conf.Password,
-		Uri: uri,
+		Uri:            uri,
 		LogDataChannel: make(chan MongoLogData),
 	}
 }
@@ -66,22 +66,21 @@ func (mongodb *MongoDBServer) Connect() *mongo.Client {
 
 	mongodb.Client = client
 
-
 	mongodb.LogDataChannel = make(chan MongoLogData)
 	go func() {
 		for {
 			select {
-			case v := <-mongodb.LogDataChannel: {
-				// fmt.Println("------------------------")
-				// fmt.Println(mongodb.PoolIdx)
-				// fmt.Println(v)
-				// fmt.Println("------------------------")
-				mongodb.InsertOne(&v)
-			}
+			case v := <-mongodb.LogDataChannel:
+				{
+					// fmt.Println("------------------------")
+					// fmt.Println(mongodb.PoolIdx)
+					// fmt.Println(v)
+					// fmt.Println("------------------------")
+					mongodb.InsertOne(&v)
+				}
 			}
 		}
 	}()
-
 
 	return client
 }

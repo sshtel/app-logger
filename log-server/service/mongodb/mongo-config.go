@@ -1,18 +1,20 @@
 package mongo_pool_service
+
 import (
-	"io/ioutil"
 	"encoding/json"
+	"io/ioutil"
 	"log"
 	"reflect"
 )
+
 type MongoConfig struct {
-	Nickname string			`json:"nickname"`
-	Hostname string			`json:"hostname"`
-	Port int				`json:"port"`
-    User string				`json:"user"`
-	Password string			`json:"password"`
-	Database string 		`json:"database"`
-    ConnectionPoolSize int	`json:"connectionPoolSize"`
+	Nickname           string `json:"nickname"`
+	Hostname           string `json:"hostname"`
+	Port               int    `json:"port"`
+	User               string `json:"user"`
+	Password           string `json:"password"`
+	Database           string `json:"database"`
+	ConnectionPoolSize int    `json:"connectionPoolSize"`
 }
 
 func LoadMongoConfig(confFilePath string) map[string]MongoConfig {

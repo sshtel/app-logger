@@ -6,21 +6,20 @@ import (
 )
 
 type MongoConnectionPool struct {
-	wg sync.WaitGroup
-	conf MongoConfig
+	wg         sync.WaitGroup
+	conf       MongoConfig
 	serverPool map[int]*MongoDBServer
 
 	InputChannel chan MongoLogData
 }
 
-func NewMongoConnectionPool (conf MongoConfig) *MongoConnectionPool {
-	p := new (MongoConnectionPool)
+func NewMongoConnectionPool(conf MongoConfig) *MongoConnectionPool {
+	p := new(MongoConnectionPool)
 	p.conf = conf
 	p.InputChannel = make(chan MongoLogData)
 
 	return p
 }
-
 
 func (s *MongoConnectionPool) Terminate() {
 	s.wg.Done()
@@ -44,13 +43,15 @@ func (s *MongoConnectionPool) Run() {
 
 		}
 
-
 		go func() {
 			var roundRobinPos = 0
 			for {
 				select {
-					case v := <-s.InputChannel: {
-						if (roundRobinPos >= poolCount) { roundRobinPos = 0 }
+				case v := <-s.InputChannel:
+					{
+						if roundRobinPos >= poolCount {
+							roundRobinPos = 0
+						}
 						s.serverPool[roundRobinPos].LogDataChannel <- v
 						roundRobinPos++
 					}

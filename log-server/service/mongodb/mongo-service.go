@@ -1,15 +1,15 @@
 package mongo_pool_service
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 	"log"
 )
 
 type MongoService struct {
 	MongoDbConfigs map[string]MongoConfig
-	defHostPool MongoConnectionPool
-	hostTable map[string]*MongoConnectionPool
+	defHostPool    MongoConnectionPool
+	hostTable      map[string]*MongoConnectionPool
 }
 
 func (s *MongoService) Init(conf map[string]MongoConfig) {
@@ -27,9 +27,8 @@ func (s *MongoService) Init(conf map[string]MongoConfig) {
 		s.hostTable[v.Nickname] = connPool
 		connPool.Run()
 	}
-	
-}
 
+}
 
 func (s *MongoService) GetInputChannel(hostnickname string) (chan MongoLogData, error) {
 	pool := s.hostTable[hostnickname]
@@ -45,10 +44,10 @@ func (s *MongoService) PutData(data *MongoLogData) error {
 		log.Println(`Failed to get channel of ` + data.HostNickname)
 		return errors.New(`Failed to get channle of ` + data.HostNickname)
 	}
-	
+
 	go func() {
 		channel <- *data
 	}()
-	
+
 	return nil
 }

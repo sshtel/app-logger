@@ -1,10 +1,11 @@
 package main
 
 import (
-	"./defs"
-	global "./global"
-	server "./server"
 	"fmt"
+
+	"github.com/sshtel/app-logger/log-server/defs"
+	"github.com/sshtel/app-logger/log-server/global"
+	"github.com/sshtel/app-logger/log-server/server"
 )
 
 func main() {

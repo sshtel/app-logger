@@ -7,9 +7,8 @@ import (
 type MysqlService struct {
 }
 
-
 func (s *MysqlService) Init() {
-	
+
 	fmt.Println("Initializing MysqlService..")
 
 }
