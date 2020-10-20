@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
+	"github.com/sshtel/app-logger/libs/service/mongo_pool_service"
 	global "github.com/sshtel/app-logger/log-server/global"
-	mongo "github.com/sshtel/app-logger/log-server/service/mongodb"
 )
 
 func GetInfoMongoAll(c echo.Context) error {
@@ -73,7 +73,7 @@ func StoreDataMongoCollection(c echo.Context) error {
 	delete(json_map, "collection")
 	delete(json_map, "database")
 
-	err := global.MongoServiceRef.PutData(&mongo.MongoLogData{
+	err := global.MongoServiceRef.PutData(&mongo_pool_service.MongoLogData{
 		HostNickname: hostnickname,
 		Timestamp:    "time",
 		Database:     database,
