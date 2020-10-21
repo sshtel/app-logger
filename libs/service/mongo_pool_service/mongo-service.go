@@ -12,10 +12,15 @@ type MongoService struct {
 	hostTable      map[string]*MongoConnectionPool
 }
 
-func (s *MongoService) Init(conf map[string]MongoConfig) {
-	fmt.Println("Initializing MongoService..")
+func New(configFilePath *string) *MongoService {
+	obj := new(MongoService)
+	obj.Init(configFilePath)
+	return obj
+}
 
-	s.MongoDbConfigs = conf
+func (s *MongoService) Init(configFilePath *string) {
+	fmt.Println("Initializing MongoService..")
+	s.MongoDbConfigs = LoadConfig(configFilePath)
 	for k := range s.MongoDbConfigs {
 		fmt.Println(s.MongoDbConfigs[k])
 	}

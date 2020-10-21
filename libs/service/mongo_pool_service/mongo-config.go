@@ -17,7 +17,12 @@ type MongoConfig struct {
 	ConnectionPoolSize int    `json:"connectionPoolSize"`
 }
 
-func LoadMongoConfig(confFilePath string) map[string]MongoConfig {
+func LoadConfig(filePath *string) map[string]MongoConfig {
+
+	var confFilePath string = "./mongo.json"
+	if filePath != nil {
+		confFilePath = *filePath
+	}
 
 	blob, err := ioutil.ReadFile(confFilePath)
 	if err != nil {

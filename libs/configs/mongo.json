@@ -1,0 +1,9 @@
+{
+  "mongo01": {
+    "hostname": "localhost",
+    "port": 27017,
+    "user": "",
+    "password": "",
+    "connectionPoolSize": 5
+  }
+}

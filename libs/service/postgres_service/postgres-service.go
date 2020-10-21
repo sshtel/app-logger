@@ -16,15 +16,16 @@ type PostgresLogData struct {
 	Data         interface{} `json:data`
 }
 
-func New() *PostgresService {
+func New(configFilePath *string) *PostgresService {
 	ref := new(PostgresService)
+	ref.Init(configFilePath)
 	return ref
 }
 
-func (s *PostgresService) Init(conf map[string]PostgresConfig) {
+func (s *PostgresService) Init(configFilePath *string) {
+	s.DbConfigs = LoadConfig(configFilePath)
 	fmt.Println("Initializing PostgresService..")
 
-	s.DbConfigs = conf
 	for k := range s.DbConfigs {
 		fmt.Println(s.DbConfigs[k])
 	}

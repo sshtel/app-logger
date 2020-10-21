@@ -18,9 +18,9 @@ type PostgresConfig struct {
 }
 
 func LoadConfig(confFilePath *string) map[string]PostgresConfig {
-	var configFilePath string = ""
-	if confFilePath == nil {
-		configFilePath = "postgres.json"
+	var configFilePath string = "./postgres.json"
+	if confFilePath != nil {
+		configFilePath = *confFilePath
 	}
 
 	blob, err := ioutil.ReadFile(configFilePath)
