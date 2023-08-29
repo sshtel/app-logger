@@ -1,0 +1,1 @@
+dotenv ./bin/app-logger
