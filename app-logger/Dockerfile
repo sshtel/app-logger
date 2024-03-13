@@ -8,6 +8,6 @@ COPY . .
 # RUN cd ./test && go test
 
 RUN go get -d -v ./...
-RUN mkdir ./bin
+RUN mkdir -p ./bin
 RUN go build -o ./bin/app-logger .
 CMD [ "sh", "-c", "/go/src/app-logger/bin/app-logger"]
